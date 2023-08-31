@@ -1,0 +1,17 @@
+env: "local" # local, dev, prod
+http_server:
+  address: "localhost:8080"
+  timeout: 10s
+  idle_timeout: 100s
+storage:
+  host: "db" # "localhost" для запуска офлайн
+  port: 5432
+  user: "postgres"
+  db: "segments"
+  password: "postgres"
+  sslmode: "disable"
+
+
+
+
+
