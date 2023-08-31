@@ -26,7 +26,7 @@
 ```bash
     # Запустить среду для создания БД и создания таблиц
     docker compose up
-    docker compose domwn
+    docker compose down
 
     # Запускаем еще раз 
     docker compose up
@@ -34,25 +34,105 @@
 
 ### Examples:
 `user/save`
-
-![usersave](/Media/usersave.jpg) 
+```bash
+    curl --location --request POST 'http://localhost:8080/user/save'
+    {
+      "status":"OK",
+      "id":16
+    }
+```
 
 `user/delete`
-
-![userdelete](/Media/userdelete.jpg)
+```bash
+    curl --location --request DELETE 'http://localhost:8080/user/delete' \
+    --header 'Content-Type: application/json' \
+    --data '{
+              "id": 9
+            }'
+    {
+      "status":"OK",
+      "id":9
+    }
+```
 
 `user/segments`
 
-![usersegments](/Media/usersegments.jpg)
+```bash 
+    curl --location --request GET 'http://localhost:8080/user/segments' \
+    --header 'Content-Type: application/json' \
+    --data '{
+        "id": 1
+        }'
+    {
+      "status":"OK",
+      "segments":{
+        "UserId":1,
+        "Segments":[
+            {
+              "ID":3,
+              "Name":"test1"
+            },
+            {
+              "ID":4,
+              "Name":"test2"
+            },
+            {
+              "ID":5,
+              "Name":"test3"
+            },
+            {
+              "ID":6,"Name":"test4"
+            }
+        ]
+      }
+    }
+```
 
 `segment/save` 
 
-![segmentsave](/Media/segmentsave.jpg)
+```bash
+    curl --location 'http://localhost:8080/segment/save' \
+    --header 'Content-Type: application/json' \
+    --data '{
+        "Name": "test10"
+    }'
+    {
+      "status":"OK",
+      "id":14,
+      "name":"test10"
+    }    
+```
 
 `segment/delete` 
 
-![segmentdelete](/Media/segmentdelete.jpg)
+```bash
+    curl --location --request DELETE 'http://localhost:8080/segment/delete' \
+    --header 'Content-Type: application/json' \
+    --data '{
+        "Name": "test9"
+        }'
+    {
+      "status":"OK",
+      "name":"test9"
+    }
+
+    
+```
 
 `segment/addToUser`
 
-![segmentAddUser](/Media/segmentAddToUser.jpg)
+```bash
+    curl --location 'http://localhost:8080/segment/addToUser' \
+    --header 'Content-Type: application/json' \
+    --data '{
+        "SegmentsToSave": [ "test1", "test2", "test3", "test4", "test5" ],
+        "SegmentsToDelete": ["qwerty", "qwerty1", "test5"],
+        "UserID": 1   
+    }'
+    {
+      "status":"OK",
+      "UserId ":1,
+      "NotAddedSegments":["test1","test2","test3","test4","test5"],
+      "DeletedSegments ":["qwerty","qwerty1","test5"]
+    }
+```

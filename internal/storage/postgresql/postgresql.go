@@ -87,7 +87,7 @@ func (s *Storage) SaveSegment(name string) (*storage.SegmentDTO, error) {
 func (s *Storage) DeleteSegment(name string) error {
 	const op = "storage.postgresql.DeleteSegment"
 
-	stmt, err := s.db.Prepare("DELETE FROM segments WHERE name = ?")
+	stmt, err := s.db.Prepare("DELETE FROM segments WHERE name = '?'")
 	if err != nil {
 		return fmt.Errorf("%s: %w", op, err)
 	}
@@ -155,7 +155,7 @@ func (s *Storage) AddUserSegment(name string, id int64) error {
 func (s *Storage) GetSegmentId(name string) (int64, error) {
 	const op = "storage.postgresql.GetSegmentId"
 
-	stmt, err := s.db.Prepare("SELECT id FROM segments WHERE name = ?")
+	stmt, err := s.db.Prepare("SELECT id FROM segments WHERE name = '?'")
 	if err != nil {
 		return 0, fmt.Errorf("%s: %w", op, err)
 	}
